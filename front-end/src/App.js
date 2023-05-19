@@ -15,7 +15,7 @@ function App() {
     if (!inputValue) return;
 
     console.log(inputValue);
-    //axios.patch()
+    // axios.patch()
   };
 
   const Delete = (_id) => {
@@ -25,7 +25,14 @@ function App() {
 
   const Add = () => {
     console.log(addTodo);
-    // axios.post();
+    axios.post('http://localhost:5000/add', { text: addTodo })
+  .then(response => {
+    const savedTodo = response.data;
+    console.log(savedTodo); // Handle the savedTodo data as needed
+  })
+  .catch(error => {
+    console.error('Failed to add todo:', error);
+  });
   };
 
   const toggleDone = (_id, isDone) => {
@@ -35,7 +42,7 @@ function App() {
 
   useEffect(() => {
     // axios
-    //   .get("Your backend URL")
+    //   .get("localhost:5000/")
     //   .then((response) => response.json())
     //   .then((data) => {
     //     console.log(data);
@@ -76,7 +83,7 @@ function App() {
           placeholder="what's next?"
           onChange={(e) => setAddTodo(e.target.value)}
         />
-        <div className="button" onClick={() => Add()}>
+        <div className="button" onClick={() => Add(addTodo)}>
           Add task
         </div>
       </div>
